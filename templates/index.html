@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교환학생 점수 산출기</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- 중앙 제목 추가 -->
+        <h1 style="text-align: center; font-size: 2rem; font-weight: bold; margin-bottom: 20px;">
+            KHU 교환학생 점수 계산기
+        </h1>
+        
+        <form action="/calculate" method="post" class="form-container">
+            <div class="card-row">
+                {% for i in range(1, 5) %}
+                <div class="card">
+                    <h3>사용자 {{ i }}</h3>
+                    <input type="number" step="0.01" name="grade{{ i }}" placeholder="학점 (ex: 4.0)">
+                    <input type="number" name="ibt{{ i }}" placeholder="IBT 점수 (선택)">
+                    <input type="number" name="itp{{ i }}" placeholder="ITP 점수 (선택)">
+                    <input type="number" step="0.1" name="ielts{{ i }}" placeholder="IELTS 점수 (선택)">
+                    <input type="number" step="0.01" name="bonus{{ i }}" placeholder="가산점 (선택)">
+                </div>
+                {% endfor %}
+            </div>
+            <!-- Centered button -->
+            <button type="submit">계산하기</button>
+        </form>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
