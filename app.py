@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
 from calculator_exchangeFinal import calculate_final_score
 import logging
-import os
 
 # Initialize Flask app
 app = Flask(__name__)
