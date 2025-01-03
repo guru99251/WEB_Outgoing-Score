@@ -67,5 +67,5 @@ def calculate():
         logging.error(f"Error processing form data: {e}")
         return f"오류가 발생했습니다: {e}", 500
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
