@@ -12,36 +12,38 @@
         {% if message %}
             <p>{{ message }}</p>
         {% else %}
-        <table class="result-table">
-            <thead>
-                <tr>
-                    <th>사용자</th>
-                    <th>학점</th>
-                    <th>IBT</th>
-                    <th>ITP</th>
-                    <th>IELTS</th>
-                    <th>가산점</th>
-                    <th>최종 점수</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for result in results %}
-                <tr>
-                    <td>사용자 {{ loop.index }}</td>
-                    <td>{{ result.grade }}</td>
-                    <td>{{ result.ibt }}</td>
-                    <td>{{ result.itp }}</td>
-                    <td>{{ result.ielts }}</td>
-                    <td>{{ result.bonus }}</td>
-                    <td>{{ result.final_score }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="result-table-container">
+            <table class="result-table">
+                <thead>
+                    <tr>
+                        <th>사용자</th>
+                        <th>학점</th>
+                        <th>IBT</th>
+                        <th>ITP</th>
+                        <th>IELTS</th>
+                        <th>가산점</th>
+                        <th>최종 점수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in results %}
+                    <tr>
+                        <td>사용자 {{ result.user }}</td>
+                        <td>{{ result.grade }}</td>
+                        <td>{{ result.ibt }}</td>
+                        <td>{{ result.itp }}</td>
+                        <td>{{ result.ielts }}</td>
+                        <td>{{ result.bonus }}</td>
+                        <td>{{ result.final_score }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
         {% endif %}
-        <a href="/" class="back-button">다시 계산하기</a>
+        <a href="#" class="back-button" onclick="history.back(); return false;">다시 계산하기</a>
     </div>
-
+    
     <!-- Footer Section -->
     <footer class="result-footer">
         <div class="guidance-box">

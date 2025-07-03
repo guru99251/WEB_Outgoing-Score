@@ -15,12 +15,17 @@ def index():
 @app.route('/calculate', methods=['POST'])
 def calculate():
     try:
+        # 1) 폼에 넘어온 gradeN 필드를 보고 사용자 번호를 동적으로 수집
+        user_idxs = sorted(
+            int(key.replace('grade',''))
+            for key in request.form.keys()
+            if key.startswith('grade') and request.form.get(key).strip() != ''
+        )
         results = []
-        for i in range(1, 5):  # Process inputs for up to 4 users
-            # Get form data
+        for i in user_idxs:
             grade = request.form.get(f'grade{i}', '').strip()
-            ibt = request.form.get(f'ibt{i}', '').strip()
-            itp = request.form.get(f'itp{i}', '').strip()
+            ibt   = request.form.get(f'ibt{i}',   '').strip()
+            itp   = request.form.get(f'itp{i}',   '').strip()
             ielts = request.form.get(f'ielts{i}', '').strip()
             bonus = request.form.get(f'bonus{i}', '').strip()
 
@@ -47,6 +52,7 @@ def calculate():
 
             # Append results
             results.append({
+                'user': i,
                 'grade': grade,
                 'ibt': ibt or "N/A",
                 'itp': itp or "N/A",

@@ -28,13 +28,18 @@ body {
     font-family: var(--font-family);
     background-color: var(--gray-light);
     color: var(--gray-dark);
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 80vh; /* 100% -> 80% */
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+}
+
+.wrapper {
+  margin: 0 auto;
 }
 
 .container {
@@ -98,6 +103,29 @@ body {
     border-color: var(--gray-dark);
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.3); /* Reduced size */
 }
+
+
+.card.add-card {
+    border: 3.2px dashed var(--black);
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 3.2px 3.2px 0 var(--black);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
+.card.add-card .plus-icon {
+    font-size: 2.5rem;
+    line-height: 1;
+}
+
+.card.add-card h3 {
+    display: none;
+}
+
 
 .form-container {
     display: flex;
@@ -164,42 +192,28 @@ button:active {
     animation-delay: var(--duration-fast);
 }
 
-/**
- .result-title {
-    font-size: 2rem; 원본 크기에서 80% 적용
-    font-weight: 800;
-    margin-bottom: 16px;
-    text-transform: uppercase;
-    color: #000;
-    border-bottom: 3.2px solid #000;
-    display: inline-block;
-    padding-bottom: 8px;
-}
-
 .result-table {
-    width: 80%; 크기 80%로 유지 
-    border-collapse: collapse;
-    margin: 20px auto; auto를 사용해 수평 중앙 정렬 
-    font-size: 1rem; 폰트 크기 유지 
-    text-align: center;
-} 
-**/
-
-.result-table {
-    width: 100%;
-    border-collapse: collapse;
+    width: 80%;
     font-size: 1rem;
     text-align: center;
+    margin: 0 auto;
+    border-collapse: collapse;
+    box-sizing: border-box;
 }
 
 .result-table-container {
-    width: 80%;
-    margin: 20px auto;
+    margin-bottom: 48px;
     transform-origin: left;
     opacity: 0;
     position: relative;
     animation: elasticExpand var(--duration-slow-table) var(--ease-out-elastic) forwards;
     animation-delay: calc(var(--duration-fast) * 2);
+    width: 90%;              /* 화면 폭의 90% */
+    max-width: 960px;        /* 필요에 따라 조정 */
+    margin: 20px auto 48px;  /* 위20 아래48, 좌우 auto */
+    padding: 0 16px;         /* 좌우 여백 확보 */
+    overflow-x: hidden;      /* 혹시 남는 가로 스크롤 숨김 */
+    box-sizing: border-box;
 }
 
 .result-table td {
@@ -262,15 +276,14 @@ button:active {
 }
 
 .result-footer {
-    margin-top: auto; /* 남은 공간을 위로 밀어냄 */
-    padding: 16px 8px; /* 여백 최소화 */
-    font-size: 0.64rem; /* 크기 유지 */
-    color: #888; /* 글자 색 유지 */
-    text-align: center; /* 텍스트와 내용 중앙 정렬 */
+    position: static;      /* 문서 흐름에 따라 배치 */
+    width: 100%;           /* 필요한 경우 max-width로 제한 가능 */
+    margin-top: 24px;      /* 표와 충분한 여백 확보 */
+    padding: 16px 8px;
+    font-size: 0.64rem;
+    color: #888;
+    text-align: center;
     line-height: 1.6;
-    position: absolute; /* 페이지에서 위치 고정 */
-    bottom: 40px; /* 페이지 하단과의 거리 */
-    width: 100%; /* 전체 너비로 확장 */
 }
 
 .guidance-box {
@@ -282,18 +295,12 @@ button:active {
     border: none;
     border-radius: 5px;
     border-top: 1px solid #ccc;
-    transition: transform 0.5s ease, z-index 0.5s ease; /* Smooth animation */
     font-size: 0.64rem;
     position: relative; /* Needed for z-index manipulation */
     transform-origin: center; /* Scales from the center */
     z-index: 1; /* Default stack order */
 }
 
-.guidance-box:hover {
-    transform: scale(1.2) translateY(-50%) translateZ(30px); /* Expand and move upward */
-    z-index: 10; /* Bring to front */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Emphasized shadow for depth */
-}
 
 .guidance-box p {
     margin: 0 0 8px 0;
@@ -437,3 +444,69 @@ button:active {
 .result-table tbody tr:nth-child(2) { animation-delay: calc(var(--duration-slow-table) + 0.2s); }
 .result-table tbody tr:nth-child(3) { animation-delay: calc(var(--duration-slow-table) + 0.3s); }
 .result-table tbody tr:nth-child(4) { animation-delay: calc(var(--duration-slow-table) + 0.4s); }
+
+@media (max-width: 600px) {
+    .wrapper {
+    width: 320px;       /* 320, 360 기준으로 조정 */
+    }
+
+    .form-container,
+    .result-container {
+    width: 100%;
+    padding: 0 16px;
+    }
+
+    .result-table {
+    font-size: 0.75rem;
+    }
+
+    button {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 1rem;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+    .wrapper {
+    width: 768px;       /* iPad 가로 기준 */
+    }
+
+    .form-container,
+    .result-container {
+    width: 100%;
+    padding: 0 24px;
+    }
+
+    .result-table {
+    font-size: 0.85rem;
+    }
+
+    button {
+    width: auto;
+    padding: 12px 24px;
+    font-size: 1.05rem;
+    }
+}
+
+@media (min-width: 1025px) {
+    .wrapper {
+    width: 1024px;      /* 혹은 1200px 등 원하는 최대폭 */
+    }
+
+    .form-container,
+    .result-container {
+    width: 100%;
+    padding: 0 32px;
+    }
+
+    .result-table {
+    font-size: 1rem;
+    }
+
+    button {
+    width: auto;
+    padding: 14px 32px;
+    font-size: 1.1rem;
+    }
+}
